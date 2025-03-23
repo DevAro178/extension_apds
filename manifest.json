@@ -4,19 +4,17 @@
   "name": "APDS",
   "content_scripts": [
     {
-      "matches": [
-        "https://mail.google.com/*",
-        "http://localhost/*",
-        "https://localhost/*"
-      ],
+      "matches": ["https://mail.google.com/*"],
       "js": ["./src/main.js"]
     }
   ],
-  "permissions": ["identity", "storage"],
-  "host_permissions": ["https://www.googleapis.com/*"],
+  "permissions": ["storage", "activeTab", "scripting", "tabs", "webNavigation"],
+  "host_permissions": ["http://*/", "https://*/"],
+  "externally_connectable": {
+    "matches": ["http://*/", "https://*/", "http://localhost:5173/*"]
+  },
   "background": {
-    "service_worker": "./src/background.js",
-    "type": "module"
+    "service_worker": "./src/background.js"
   },
   "action": {
     "default_popup": "./src/index.html"
