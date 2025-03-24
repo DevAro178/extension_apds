@@ -3,7 +3,12 @@ chrome.runtime.onMessageExternal.addListener(
     if (message.action === "USER_LOGIN") {
       const { action, ...data } = message;
       chrome.storage.local.clear(() => {
-        chrome.storage.local.set({ ...data }, () => {});
+        chrome.storage.local.set({ ...data }, () => {
+          chrome.runtime.sendMessage({
+            action: "UPDATE_POPUP",
+            name: data.name,
+          });
+        });
       });
       sendResponse({ success: true, message: "User Logged In!" });
     } else if (message.action === "USER_LOGOUT") {

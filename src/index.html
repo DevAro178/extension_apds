@@ -9,21 +9,24 @@
                 font-family: Arial, sans-serif;
             }
 
-            button {
-                padding: 10px;
-                background-color: #4285f4;
-                color: white;
-                border: none;
-                cursor: pointer;
+            .authorized {
+                display: none;
+            }
+
+            .unauthorized {
+                display: none;
             }
         </style>
     </head>
 
     <body>
-        <h1>Gmail Extension</h1>
-        <button id="signin">Sign in with Google</button>
-        <div id="user-info"></div>
-        <div id="emails"></div>
+        <div class="authorized">
+            <p>Welcome, <span class="username"></span></p>
+            <h2>Loggedin</h2>
+        </div>
+        <div class="unauthorized">
+            <h2>Login</h2>
+        </div>
         <script src="popup.js"></script>
     </body>
 
