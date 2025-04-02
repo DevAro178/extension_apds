@@ -1,11 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-  document.getElementById("signin").addEventListener("click", function () {
-    chrome.storage.local.get(null, (data) => {
-      alert(`Stored JWT Token: ${data.jwt || "No token found!"}`);
-      console.log("Stored JWT Token:", data);
-    });
-  });
-
   // Listen for messages from the background script
   chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.action === "UPDATE_POPUP" && message.name) {
