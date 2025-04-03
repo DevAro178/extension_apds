@@ -11,7 +11,11 @@
   "permissions": ["storage", "activeTab", "scripting", "tabs", "webNavigation"],
   "host_permissions": ["http://*/", "https://*/"],
   "externally_connectable": {
-    "matches": ["http://*/", "https://*/", "http://localhost:5173/*"]
+    "matches": [
+      "http://*/",
+      "https://mail.google.com/*",
+      "http://localhost:5173/*"
+    ]
   },
   "background": {
     "service_worker": "./src/background.js"
