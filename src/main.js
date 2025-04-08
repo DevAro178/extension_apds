@@ -1,8 +1,11 @@
+const ElementIdentifier = "uniqueRandomClassNameisHere";
+
 const isLoaded = () => {
   return new Promise((resolve) => {
     const intervalId = setInterval(() => {
       const loadingElement = document.querySelector("#loading");
       if (loadingElement && loadingElement.style.display === "none") {
+        loadingElement.dataset.DomManipulated = true;
         clearInterval(intervalId);
         resolve(true);
       }
@@ -13,28 +16,31 @@ const isLoaded = () => {
 const insertItem = (table, customElement) => {
   const lists = table.querySelectorAll("tr td ul");
   lists.forEach((ul) => {
-    const newElement = customElement.cloneNode(true);
-
-    newElement.addEventListener("click", () => {
-      const threadIdElement = ul.parentNode.parentNode.querySelector(
-        "span[data-legacy-thread-id]"
-      );
-      if (threadIdElement) {
-        const threadId = threadIdElement.getAttribute("data-legacy-thread-id");
-        console.log("Thread ID:", threadId);
-        alert(`Thread ID: ${threadId}`);
-      } else {
-        console.warn("No element with data-legacy-thread-id found.");
-      }
-    });
-    ul.insertBefore(newElement, ul.firstChild);
+    if (ul.getElementsByClassName(ElementIdentifier).length === 0) {
+      const newElement = customElement.cloneNode(true);
+      newElement.addEventListener("click", () => {
+        const threadIdElement = ul.parentNode.parentNode.querySelector(
+          "span[data-legacy-thread-id]"
+        );
+        if (threadIdElement) {
+          const threadId = threadIdElement.getAttribute(
+            "data-legacy-thread-id"
+          );
+          console.log("Thread ID:", threadId);
+          alert(`Thread ID: ${threadId}`);
+        } else {
+          console.warn("No element with data-legacy-thread-id found.");
+        }
+      });
+      ul.insertBefore(newElement, ul.firstChild);
+    }
   });
 };
 
 const findTable = (element) => {
   const tables = element.querySelectorAll("table");
   const customElement = document.createElement("li");
-  customElement.className = "bqX brq";
+  customElement.className = `bqX brq ${ElementIdentifier}`;
   customElement.setAttribute("data-tooltip", "Check Email");
 
   tables.forEach((table) => {
@@ -44,15 +50,17 @@ const findTable = (element) => {
 
 isLoaded().then((loaded) => {
   if (loaded) {
-    console.log("Loading element is hidden. Proceeding...");
-    const tabPanelDivs = document.querySelectorAll('div[role="tabpanel"]');
-    if (tabPanelDivs.length > 0) {
-      // findTable(tabPanelDivs[0]);
-      tabPanelDivs.forEach((element) => {
-        findTable(element);
-      });
-    } else {
-      console.warn("No tabpanel div found.");
-    }
+    setInterval(() => {
+      const tabPanelDivs = document.querySelector(
+        'div[role="tabpanel"] style=display!=none'
+      );
+      if (tabPanelDivs.length > 0) {
+        tabPanelDivs.forEach((element) => {
+          if (element.style.display != "none") findTable(element);
+        });
+      } else {
+        console.warn("No tabpanel div found.");
+      }
+    }, 500);
   }
 });
