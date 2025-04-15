@@ -48,19 +48,23 @@ const findTable = (element) => {
   });
 };
 
-isLoaded().then((loaded) => {
-  if (loaded) {
-    setInterval(() => {
-      const tabPanelDivs = document.querySelector(
-        'div[role="tabpanel"] style=display!=none'
-      );
-      if (tabPanelDivs.length > 0) {
-        tabPanelDivs.forEach((element) => {
-          if (element.style.display != "none") findTable(element);
-        });
-      } else {
-        console.warn("No tabpanel div found.");
+chrome.storage.local.get("isAuthenticated", (result) => {
+  if (result.isAuthenticated) {
+    isLoaded().then((loaded) => {
+      if (loaded) {
+        setInterval(() => {
+          const tabPanelDivs = document.querySelectorAll(
+            'div[role="tabpanel"]'
+          );
+          if (tabPanelDivs.length > 0) {
+            tabPanelDivs.forEach((element) => {
+              if (element.style.display != "none") findTable(element);
+            });
+          } else {
+            console.warn("No tabpanel div found.");
+          }
+        }, 500);
       }
-    }, 500);
+    });
   }
 });

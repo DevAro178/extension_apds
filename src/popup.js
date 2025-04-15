@@ -20,3 +20,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+document.getElementById("redirectBtn").addEventListener("click", (e) => {
+  e.preventDefault();
+  const url = config.dashboard_url;
+  if (url) {
+    window.open(url, "_blank");
+  } else {
+    console.error("Dashboard URL is not defined in the config.");
+  }
+});
