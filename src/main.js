@@ -26,8 +26,10 @@ const insertItem = (table, customElement) => {
           const threadId = threadIdElement.getAttribute(
             "data-legacy-thread-id"
           );
-          console.log("Thread ID:", threadId);
-          alert(`Thread ID: ${threadId}`);
+          chrome.runtime.sendMessage({
+            action: "THREAD_ID",
+            threadId: threadId,
+          });
         } else {
           console.warn("No element with data-legacy-thread-id found.");
         }
