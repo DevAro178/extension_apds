@@ -80,7 +80,14 @@ const insertItem = (table, customElement) => {
         newElement.setAttribute("id", String(threadId));
         labelEmail(threadId);
       }
+
+      let clickTimeout = null;
       newElement.addEventListener("click", () => {
+        if (clickTimeout) return;
+        clickTimeout = setTimeout(() => {
+          clickTimeout = null;
+        }, 300); // throttle multiple rapid clicks
+
         const threadIdElement = ul.parentNode.parentNode.querySelector(
           "span[data-legacy-thread-id]"
         );
@@ -88,14 +95,12 @@ const insertItem = (table, customElement) => {
           const threadId = threadIdElement.getAttribute(
             "data-legacy-thread-id"
           );
-          chrome.runtime.sendMessage({
-            action: "THREAD_ID",
-            threadId: threadId,
-          });
+          chrome.runtime.sendMessage({ action: "THREAD_ID", threadId });
         } else {
           console.warn("No element with data-legacy-thread-id found.");
         }
       });
+
       ul.insertBefore(newElement, ul.firstChild);
     }
   });
