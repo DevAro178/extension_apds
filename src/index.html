@@ -1,33 +1,102 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
     <head>
-        <title>Gmail Extension</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>APDS</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+            rel="stylesheet">
+
         <style>
+            * {
+                box-sizing: border-box;
+            }
+
             body {
-                width: 300px;
-                font-family: Arial, sans-serif;
+                margin: 0;
+                font-family: "Poppins", sans-serif;
+            }
+
+            .root {
+                width: 420px;
+                height: 520px;
+                background-image: url('../assets/bg.png');
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                text-align: center;
+                color: black;
+            }
+
+            .title {
+                font-size: 1.5rem;
+                font-weight: bold;
+                margin-bottom: auto;
+                margin-top: auto;
+            }
+
+            .login-button {
+                position: absolute;
+                bottom: 0;
+                width: 90%;
+                padding: 15px 0;
+                margin: 20px;
+                background-color: black;
+                color: white;
+                border: none;
+                font-size: 1rem;
+                cursor: pointer;
+                border-radius: 8px;
+                font-family: "Poppins", sans-serif;
+            }
+
+            .login-button:hover {
+                opacity: 0.9;
             }
 
             .authorized {
                 display: none;
+                padding: 15px;
             }
 
             .unauthorized {
                 display: none;
             }
+
+            .header {
+                border-bottom: 1px solid rgb(226, 232, 240);
+                width: 100%;
+                text-align: left;
+                padding: 15px;
+                color: rgb(100, 116, 139);
+                font-weight: 500;
+            }
         </style>
     </head>
 
     <body>
-        <div class="authorized">
-            <p>Welcome, <span class="username"></span></p>
-            <h2>Loggedin</h2>
+        <div class="root unauthorized">
+            <div class="title">Advanced Phishing Detection System</div>
+            <button class="login-button redirectBtn">Login</button>
         </div>
-        <div class="unauthorized">
-            <h2>Login</h2>
-            <button id="redirectBtn">Click Here to login</button>
+        <div class="root authorized">
+            <div class="header">
+                Advanced Phishing Detection System
+            </div>
+            <div class="title">Welcome to APDS, <span class="username"></span></div>
+            <button class="login-button redirectBtn">Analytics and Insights</button>
         </div>
+
         <script src="config.js"></script>
         <script src="popup.js"></script>
     </body>
