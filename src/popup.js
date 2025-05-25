@@ -15,8 +15,8 @@ document.addEventListener("DOMContentLoaded", function () {
       document.querySelector(".authorized").style.display = "flex";
       document.querySelector(".unauthorized").style.display = "none";
     } else {
-      document.querySelector(".authorized").style.display = "flex";
-      document.querySelector(".unauthorized").style.display = "block";
+      document.querySelector(".authorized").style.display = "none";
+      document.querySelector(".unauthorized").style.display = "flex";
     }
   });
 });
